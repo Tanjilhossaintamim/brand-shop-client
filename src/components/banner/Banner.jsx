@@ -17,7 +17,7 @@ const Banner = () => {
       }}
       loop={true}
       modules={[Navigation, Pagination, EffectFade]}
-      autoplay={{ delay: 1000 }}
+      autoplay={true}
       className="mySwiper"
     >
       <SwiperSlide>
