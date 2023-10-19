@@ -1,10 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import DropDown from "./Dropdown";
 const Header = () => {
+  const { user } = useSelector((state) => state.auth);
+
   const [showNav, setShowNav] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
-  const [user, setUser] = useState(false);
+
   const [scroll, setScroll] = useState(false);
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {
@@ -49,7 +53,7 @@ const Header = () => {
                 My Cart
               </NavLink>
 
-              {!user ? (
+              {!user?.email ? (
                 <Link
                   to={"/login"}
                   className="w-[5em] h-[2em] flex justify-center items-center bg-[#FF4E00] rounded-[30em] text-white font-semibold"
@@ -57,11 +61,10 @@ const Header = () => {
                   Login
                 </Link>
               ) : (
-                // <DropDown
-                //   showDropDown={showDropDown}
-                //   control={() => setShowDropDown((prv) => !prv)}
-                // />
-                <div></div>
+                <DropDown
+                  showDropDown={showDropDown}
+                  control={() => setShowDropDown((prv) => !prv)}
+                />
               )}
             </div>
             {/* <!-- BURGER MENU --> */}

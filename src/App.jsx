@@ -14,9 +14,9 @@ function App() {
     const subscribe = onAuthStateChanged(auth, (user) => {
       dispath(
         setUser({
-          email: user.email,
-          displayName: user.displayName,
-          photoUrl: user.photoURL,
+          email: user?.email,
+          displayName: user?.displayName,
+          photoUrl: user?.photoURL,
         })
       );
       dispath(setLoading(false));
