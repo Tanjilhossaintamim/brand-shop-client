@@ -1,9 +1,6 @@
 const Sekeleton = () => {
   return (
-    <div
-      role="status"
-      className="animate-pulse"
-    >
+    <div role="status" className="animate-pulse">
       <div className="flex items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96">
         <svg
           className="w-10 h-10 text-gray-200 "

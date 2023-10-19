@@ -7,7 +7,7 @@ const Header = () => {
   const [user, setUser] = useState(false);
   const [scroll, setScroll] = useState(false);
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 300) {
+    if (window.scrollY > 100) {
       setScroll(true);
     } else {
       setScroll(false);
