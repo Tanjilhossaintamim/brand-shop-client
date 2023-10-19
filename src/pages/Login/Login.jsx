@@ -1,8 +1,24 @@
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { signInSchema } from "../../schema/schema";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import auth from "../../utils/firebase";
+import { setLoading } from "../../redux/features/authenication/authSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispath = useDispatch();
+  const handelLogin = ({ email, password }) => {
+    dispath(setLoading(true));
+    signInWithEmailAndPassword(auth, email, password)
+      .then((res) => {
+        dispath(setLoading(false));
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const initialValues = {
     email: "",
     password: "",
@@ -12,7 +28,7 @@ const Login = () => {
       initialValues,
       validationSchema: signInSchema,
       onSubmit: (values) => {
-        console.log(values);
+        handelLogin(values);
       },
     });
   return (
