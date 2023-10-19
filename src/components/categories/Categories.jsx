@@ -27,7 +27,9 @@ const Categories = () => {
                     alt=""
                     className="w-full object-cover rounded-full"
                   />
-                  <h1>{category.name}</h1>
+                  <h1 className="text-color-black font-medium">
+                    {category.name}
+                  </h1>
                 </div>
               </div>
             </SwiperSlide>
