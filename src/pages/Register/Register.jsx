@@ -1,13 +1,23 @@
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { userSchema } from "../../schema/schema";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import auth from "../../utils/firebase";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../redux/features/authenication/authSlice";
 
 const Register = () => {
   const dispath = useDispatch();
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then((res) => {
+      console.log(res);
+    });
+  };
   const handelRegister = ({ email, password }) => {
     dispath(setLoading(true));
     createUserWithEmailAndPassword(auth, email, password)
@@ -42,18 +52,12 @@ const Register = () => {
             Create an account
           </h1>
 
-          <form
-            onSubmit={handleSubmit}
-            className="mt-6"
-            action="#"
-            method="POST"
-          >
+          <form onSubmit={handleSubmit} className="mt-6" method="POST">
             <div>
               <label className="block text-gray-700">Your Name</label>
               <input
                 type="text"
                 name="name"
-                id=""
                 placeholder="Enter Email Address"
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 value={values.name}
@@ -69,7 +73,6 @@ const Register = () => {
               <input
                 type="email"
                 name="email"
-                id=""
                 placeholder="Enter Email Address"
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                 value={values.email}
@@ -86,7 +89,6 @@ const Register = () => {
               <input
                 type="password"
                 name="password"
-                id=""
                 placeholder="Enter Password"
                 minLength="6"
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
@@ -122,6 +124,7 @@ const Register = () => {
 
           <button
             type="button"
+            onClick={googleSignIn}
             className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
           >
             <div className="flex items-center justify-center">

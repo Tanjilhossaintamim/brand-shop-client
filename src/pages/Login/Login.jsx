@@ -1,13 +1,26 @@
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { signInSchema } from "../../schema/schema";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import auth from "../../utils/firebase";
 import { setLoading } from "../../redux/features/authenication/authSlice";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
   const dispath = useDispatch();
+
+  // google sign in funtion
+  const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then((res) => {
+      console.log(res);
+    });
+  };
+  //email password sign in funtion
   const handelLogin = ({ email, password }) => {
     dispath(setLoading(true));
     signInWithEmailAndPassword(auth, email, password)
@@ -109,6 +122,7 @@ const Login = () => {
 
           <button
             type="button"
+            onClick={googleSignIn}
             className="w-full block bg-white hover:bg-gray-100 focus:bg-gray-100 text-gray-900 font-semibold rounded-lg px-4 py-3 border border-gray-300"
           >
             <div className="flex items-center justify-center">
