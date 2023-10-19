@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../../redux/features/brand/brandApi";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { productslidersettings } from "../../utils/sliderSettings";
@@ -60,12 +60,16 @@ const Product = () => {
               <span>{product.rating}.0</span>
             </div>
             <div>
-              <button className="bg-blue-700 px-3 py-1 text-white rounded-3xl mr-2">
-                Details
-              </button>
-              <button className="bg-green-700 px-3 py-1 text-white rounded-3xl">
-                Update
-              </button>
+              <Link to={`/products/${brandName}/${product._id}`}>
+                <button className="bg-blue-700 px-3 py-1 text-white rounded-3xl mr-2">
+                  Details
+                </button>
+              </Link>
+              <Link>
+                <button className="bg-green-700 px-3 py-1 text-white rounded-3xl">
+                  Update
+                </button>
+              </Link>
             </div>
           </div>
         </div>

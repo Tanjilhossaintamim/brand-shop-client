@@ -8,6 +8,10 @@ const brandApi = api.injectEndpoints({
     getProducts: builder.query({
       query: (brandName) => `/products/${brandName}`,
     }),
+    getProduct: builder.query({
+      query: ({ brandName, id }) => `/products/${brandName}/${id}`,
+    }),
   }),
 });
-export const { useGetBrandsQuery, useGetProductsQuery } = brandApi;
+export const { useGetBrandsQuery, useGetProductsQuery, useGetProductQuery } =
+  brandApi;
