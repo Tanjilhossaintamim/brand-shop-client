@@ -7,6 +7,8 @@ import Register from "../pages/Register/Register";
 import Product from "../components/product/Product";
 import Details from "../pages/Details/Details";
 import UpdateProduct from "../pages/updateProduct/UpdateProduct";
+import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute";
 
 const router = createBrowserRouter([
   {
@@ -19,15 +21,27 @@ const router = createBrowserRouter([
       },
       {
         path: "/addProduct",
-        element: <AddProduct />,
+        element: (
+          <PrivateRoute>
+            <AddProduct />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
-        element: <Login />,
+        element: (
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
+        ),
       },
       {
         path: "/register",
-        element: <Register />,
+        element: (
+          <PublicRoute>
+            <Register />
+          </PublicRoute>
+        ),
       },
       {
         path: "/brands/:brandName",
@@ -35,11 +49,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/products/:brandName/:id",
-        element: <Details />,
+        element: (
+          <PrivateRoute>
+            <Details />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/products/update/:id",
-        element:<UpdateProduct/>
+        element: (
+          <PrivateRoute>
+            <UpdateProduct />
+          </PrivateRoute>
+        ),
       },
     ],
   },
