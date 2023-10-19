@@ -5,8 +5,18 @@ const Header = () => {
   const [showNav, setShowNav] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
   const [user, setUser] = useState(false);
+  const [scroll, setScroll] = useState(false);
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      setScroll(true);
+    } else {
+      setScroll(false);
+    }
+  });
   return (
-    <section className="sticky top-0 z-50">
+    <section
+      className={`sticky top-0 z-50 ${scroll ? "shadow-md" : "shadow-none"}`}
+    >
       <div className="h-auto  bg-white py-2">
         <nav className="font-inter mx-auto h-auto w-full max-w-[1600px] lg:relative lg:top-0">
           <div className="flex flex-col px-6 py-6 lg:flex-row lg:items-center lg:justify-between lg:px-10 lg:py-2 xl:px-20">

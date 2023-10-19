@@ -7,7 +7,6 @@ import "swiper/css/pagination";
 import { sliderSettings } from "../../utils/sliderSettings";
 
 const Categories = () => {
-  const swiper = useSwiper();
   return (
     <div className="bg-white py-5">
       <div className="max-w-[1440px] mx-auto relative">
