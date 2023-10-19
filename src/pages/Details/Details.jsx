@@ -3,9 +3,9 @@ import { useGetProductQuery } from "../../redux/features/brand/brandApi";
 import DetailSekeleton from "../../components/sekeleton/DetailSekeleton";
 
 const Details = () => {
-  const { id, brandName } = useParams();
-  const { data, isLoading } = useGetProductQuery({ brandName, id });
-  const { image, _id, price, rating, name, description } = data || {};
+  const { id } = useParams();
+  const { data, isLoading } = useGetProductQuery(id);
+  const { image, _id, price, name, description } = data || {};
   let content = null;
   if (isLoading) {
     content = <DetailSekeleton />;

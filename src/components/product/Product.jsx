@@ -31,9 +31,11 @@ const Product = () => {
   if (data?.length > 0) {
     content = data.map((product) => (
       <SwiperSlide key={product._id} loop={true} className="mySwiper">
-        <div className="w-[400px]">
-          <img src={product.image} alt="" className="w-full object-cover" />
-          <div className="flex flex-col text-start justify-start gap-1 text-color-black">
+        <div className="w-[400px] h-[480px]">
+          <div className=" w-full h-2/3">
+            <img src={product.image} alt="" className="w-full object-cover" />
+          </div>
+          <div className="flex flex-col text-start justify-start gap-1 text-color-black h-1/3">
             <h1>Name: {product.name}</h1>
             <h5>Brand: {product.brandName}</h5>
             <div className="flex gap-2">
@@ -59,13 +61,13 @@ const Product = () => {
               ))}
               <span>{product.rating}.0</span>
             </div>
-            <div>
+            <div className="flex  items-center">
               <Link to={`/products/${brandName}/${product._id}`}>
                 <button className="bg-blue-700 px-3 py-1 text-white rounded-3xl mr-2">
                   Details
                 </button>
               </Link>
-              <Link>
+              <Link to={`/products/update/${product._id}`}>
                 <button className="bg-green-700 px-3 py-1 text-white rounded-3xl">
                   Update
                 </button>
@@ -88,7 +90,7 @@ const Product = () => {
             clickable: true,
           }}
           modules={[Autoplay, Pagination, Navigation]}
-          autoplay={{ delay: 1000 }}
+          autoplay={{ delay: 1000, pauseOnMouseEnter: true }}
         >
           {content}
         </Swiper>

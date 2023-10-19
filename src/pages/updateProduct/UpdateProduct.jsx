@@ -1,24 +1,31 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
-  useAddProductMutation,
   useGetBrandsQuery,
+  useGetProductQuery,
+  useUpdateProductMutation,
 } from "../../redux/features/brand/brandApi";
+
+import { useEffect } from "react";
 import Swal from "sweetalert2";
 
-const AddProduct = () => {
-  const { data } = useGetBrandsQuery();
-  const [addProduct, { isSuccess, isLoading }] = useAddProductMutation();
+const UpdateProduct = () => {
+  const { id } = useParams();
+  const { data } = useGetProductQuery(id);
+  const { data: brands } = useGetBrandsQuery();
+  const { image, _id, price, name, description, rating, brandName, type } =
+    data || {};
+
+  const [updateProduct, { isSuccess, isLoading }] = useUpdateProductMutation();
   const navigate = useNavigate();
   useEffect(() => {
     if (isSuccess) {
       Swal.fire({
         title: "Success",
-        text: "Product Added Successfully!",
+        text: "Product Update Successfully!",
         icon: "success",
         confirmButtonText: "Ok",
       });
-      navigate("/");
+      navigate(-1);
     }
   }, [isSuccess, navigate]);
   const handelAddProduct = (e) => {
@@ -40,7 +47,8 @@ const AddProduct = () => {
       brandName,
       rating,
     };
-    addProduct(productInfo);
+
+    updateProduct({ _id, productInfo });
   };
 
   return (
@@ -49,7 +57,7 @@ const AddProduct = () => {
         <form onSubmit={handelAddProduct}>
           <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
             <h1 className="text-2xl text-color-black text-center py-4">
-              Add Product
+              Update Product
             </h1>
             <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
               <div className="lg:col-span-2">
@@ -63,6 +71,7 @@ const AddProduct = () => {
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                       required
                       placeholder="Enter Image Url"
+                      defaultValue={image}
                     />
                   </div>
 
@@ -75,6 +84,7 @@ const AddProduct = () => {
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                       placeholder="Name of Your Product"
                       required
+                      defaultValue={name}
                     />
                   </div>
 
@@ -87,6 +97,7 @@ const AddProduct = () => {
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                       placeholder="Short Description"
                       required
+                      defaultValue={description}
                     />
                   </div>
 
@@ -99,6 +110,7 @@ const AddProduct = () => {
                       className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
                       placeholder="Enter Price"
                       required
+                      defaultValue={price}
                     />
                   </div>
 
@@ -110,11 +122,26 @@ const AddProduct = () => {
                       id=""
                       className="h-10 w-full bg-white flex border border-gray-200 rounded items-center mt-1"
                       required
+                      defaultValue={type}
                     >
-                      <option>SmartPhone</option>
-                      <option>Headphone</option>
-                      <option>Camera</option>
-                      <option>Tv</option>
+                      <option
+                        value={"SmartPhone"}
+                        selected={type == "SmartPhone"}
+                      >
+                        SmartPhone
+                      </option>
+                      <option
+                        value={"Headphone"}
+                        selected={type == "Headphone"}
+                      >
+                        Headphone
+                      </option>
+                      <option value={"Camera"} selected={type == "Camera"}>
+                        Camera
+                      </option>
+                      <option value={"Tv"} selected={type == "Tv"}>
+                        Tv
+                      </option>
                     </select>
                   </div>
 
@@ -125,10 +152,17 @@ const AddProduct = () => {
                       name="brand"
                       id=""
                       className="h-10 w-full bg-white flex border border-gray-200 rounded items-center mt-1"
+                      defaultValue={brandName}
                     >
-                      {data?.length > 0 &&
-                        data.map((brand) => (
-                          <option key={brand._id}>{brand.brandName}</option>
+                      {brands?.length > 0 &&
+                        brands.map((brand) => (
+                          <option
+                            key={brand._id}
+                            value={brand.brandName}
+                            selected={brand.brandName == brandName}
+                          >
+                            {brand.brandName}
+                          </option>
                         ))}
                     </select>
                   </div>
@@ -144,6 +178,7 @@ const AddProduct = () => {
                       min={1}
                       max={5}
                       required
+                      defaultValue={rating}
                     />
                   </div>
 
@@ -154,7 +189,7 @@ const AddProduct = () => {
                         disabled={isLoading}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                       >
-                        Add
+                        Update
                       </button>
                     </div>
                   </div>
@@ -167,5 +202,4 @@ const AddProduct = () => {
     </div>
   );
 };
-
-export default AddProduct;
+export default UpdateProduct;
