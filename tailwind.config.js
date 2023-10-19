@@ -7,7 +7,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'color-black': "#252528"
+        'color-black': "#252528",
+        'color-orange': "#FF4E00",
       }
     },
   },
