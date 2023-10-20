@@ -24,7 +24,12 @@ const Brands = () => {
   return (
     <div className="bg-white py-40 px-4 lg:px-0">
       <div className="max-w-[1440px] mx-auto  ">
-        <h1 className="text-3xl font-bold text-color-black">Popular Brands</h1>
+        <h1 className="text-4xl font-bold text-color-black text-center">
+          Popular <span className="text-color-orange">Brands</span>
+        </h1>
+        <p className="text-base text-center text-color-black mb-8 mt-2">
+          World most famous Brand !
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 place-content-center gap-7 mt-5">
           {content}
         </div>

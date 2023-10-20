@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { useGetProductsQuery } from "../../redux/features/brand/brandApi";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { productslidersettings } from "../../utils/sliderSettings";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
@@ -82,7 +82,7 @@ const Product = () => {
   return (
     <div className="min-h-[50vh] py-10 px-4 lg:px-0">
       <div className="max-w-[1440px] mx-auto">
-        <h1 className="text-4xl mb-4">Products of {brandName}</h1>
+        <h1 className="text-4xl mb-4">Products of <span className="text-color-orange">{brandName}</span></h1>
         <Swiper
           {...productslidersettings}
           navigation={true}
