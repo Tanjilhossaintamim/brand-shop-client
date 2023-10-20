@@ -50,6 +50,7 @@ const UpdateProduct = () => {
 
     updateProduct({ _id, productInfo });
   };
+  document.title = name;
 
   return (
     <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">

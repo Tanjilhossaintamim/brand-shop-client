@@ -4,6 +4,8 @@ import Brands from "../../components/brands/Brands";
 import Categories from "../../components/categories/Categories";
 
 const Home = () => {
+  document.title = "Home";
+
   return (
     <div>
       <Banner />

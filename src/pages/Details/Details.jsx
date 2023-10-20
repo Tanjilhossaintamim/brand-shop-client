@@ -76,6 +76,7 @@ const Details = () => {
       <div className="text-3xl font-bold text-center">No Product Found !</div>
     );
   }
+  document.title = `Details||${name}`;
 
   return (
     <div>

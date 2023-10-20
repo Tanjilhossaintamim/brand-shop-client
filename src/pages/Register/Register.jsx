@@ -49,6 +49,8 @@ const Register = () => {
         handelRegister(values);
       },
     });
+  document.title = "Register";
+
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">
       <div

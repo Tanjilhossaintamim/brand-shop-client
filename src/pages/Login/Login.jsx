@@ -52,6 +52,7 @@ const Login = () => {
         handelLogin(values);
       },
     });
+  document.title = "Login";
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">
       <div

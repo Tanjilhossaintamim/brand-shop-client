@@ -69,6 +69,8 @@ const Cart = () => {
       </div>
     );
   }
+  document.title = "My Cart";
+
   return (
     <div className="max-w-2xl mx-auto min-h-[50vh]">
       <div className="flex flex-col">
