@@ -1,4 +1,4 @@
-import Headphoneimg from "../../assets/headphone.jpg";
+
 
 const Archivs = () => {
   console.log("render");
@@ -6,7 +6,11 @@ const Archivs = () => {
     <div className="py-20 px-4 lg:px-0">
       <div className="max-w-[1440px] min-h-80 mx-auto flex items-center justify-between flex-wrap">
         <div className="relative lg:w-[620px]">
-          <img src={Headphoneimg} alt="" className="object-cover rounded" />
+          <img
+            src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aGVhZHBob25lfGVufDB8fDB8fHww"
+            alt=""
+            className="object-cover rounded"
+          />
         </div>
         <div className="mt-2 lg:mt-0 lg:w-[810px]">
           <h1 className="text-3xl font-bold text-[#172BAA] mb-2">
