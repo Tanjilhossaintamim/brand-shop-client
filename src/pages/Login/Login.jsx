@@ -9,6 +9,7 @@ import {
 import auth from "../../utils/firebase";
 import { setLoading } from "../../redux/features/authenication/authSlice";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const dispath = useDispatch();
@@ -27,9 +28,12 @@ const Login = () => {
       .then((res) => {
         dispath(setLoading(false));
         console.log(res);
+        toast.success("Login Successfully !");
       })
       .catch((err) => {
-        console.log(err);
+        dispath(setLoading(false));
+
+        toast.error(`${err.message}`);
       });
   };
   const initialValues = {

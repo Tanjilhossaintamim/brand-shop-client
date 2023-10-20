@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 import auth from "./utils/firebase";
 import { setLoading, setUser } from "./redux/features/authenication/authSlice";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispath = useDispatch();
@@ -28,6 +29,7 @@ function App() {
       <Header />
       <Outlet />
       <Footer />
+      <Toaster />
     </div>
   );
 }

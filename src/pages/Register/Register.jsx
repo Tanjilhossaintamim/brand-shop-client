@@ -9,23 +9,31 @@ import {
 import auth from "../../utils/firebase";
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../redux/features/authenication/authSlice";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const dispath = useDispatch();
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider).then((res) => {
-      console.log(res);
-    });
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        console.log(res);
+        toast.success("Login successfully !");
+      })
+      .catch(() => {
+        toast.error("Login Failed !");
+      });
   };
   const handelRegister = ({ email, password }) => {
     dispath(setLoading(true));
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
         dispath(setLoading(false));
+        toast.success("Login successfully !");
       })
       .catch((err) => {
-        console.log(err);
+        dispath(setLoading(false));
+        toast.error(`${err.message}`);
       });
   };
   const initialValues = {
