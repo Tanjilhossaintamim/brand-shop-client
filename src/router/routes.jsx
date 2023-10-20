@@ -9,6 +9,7 @@ import Details from "../pages/Details/Details";
 import UpdateProduct from "../pages/updateProduct/UpdateProduct";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import Cart from "../pages/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UpdateProduct />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/mycart",
+        element: (
+          <PrivateRoute>
+            <Cart />
           </PrivateRoute>
         ),
       },

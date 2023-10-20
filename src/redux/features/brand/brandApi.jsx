@@ -69,6 +69,63 @@ const brandApi = api.injectEndpoints({
         }
       },
     }),
+    getCartItem: builder.query({
+      query: (email) => `/carts/${email}`,
+    }),
+    addToCart: builder.mutation({
+      query: ({ _id, cartInfo }) => ({
+        url: `/carts/${_id}`,
+        method: "POST",
+        body: cartInfo,
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          console.log(arg.cartInfo);
+          const { data } = await queryFulfilled;
+          if (data?.insertedId) {
+            dispatch(
+              api.util.updateQueryData(
+                "getCartItem",
+                arg.cartInfo.email,
+                (draft) => {
+                  arg.cartInfo._id = data.insertedId;
+                  console.log(arg.cartInfo);
+                  draft.push(arg.cartInfo);
+                }
+              )
+            );
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
+    deleteToCart: builder.mutation({
+      query: (id) => ({
+        url: `/carts/${id}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled, getState }) {
+        try {
+          const { data } = await queryFulfilled;
+          if (data?.deletedCount == 1) {
+            dispatch(
+              api.util.updateQueryData(
+                "getCartItem",
+                getState().auth.user.email,
+                (draft) => {
+                  const findId = draft.map((item) => item.id);
+                  const index = findId.indexOf(arg);
+                  draft.splice(index, 1);
+                }
+              )
+            );
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 export const {
@@ -77,4 +134,7 @@ export const {
   useGetProductQuery,
   useAddProductMutation,
   useUpdateProductMutation,
+  useGetCartItemQuery,
+  useAddToCartMutation,
+  useDeleteToCartMutation,
 } = brandApi;
