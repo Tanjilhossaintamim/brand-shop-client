@@ -1,6 +1,6 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Logo from "../../assets/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import DropDown from "./Dropdown";
 const Header = () => {
@@ -8,7 +8,7 @@ const Header = () => {
 
   const [showNav, setShowNav] = useState(false);
   const [showDropDown, setShowDropDown] = useState(false);
-
+  const location = useLocation();
   const [scroll, setScroll] = useState(false);
   window.addEventListener("scroll", () => {
     if (window.scrollY > 100) {
@@ -17,6 +17,9 @@ const Header = () => {
       setScroll(false);
     }
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <section
       className={`sticky top-0 z-50 ${scroll ? "shadow-md" : "shadow-none"}`}
