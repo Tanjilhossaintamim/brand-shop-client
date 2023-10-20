@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signInSchema } from "../../schema/schema";
 import {
   GoogleAuthProvider,
@@ -13,21 +13,25 @@ import toast from "react-hot-toast";
 
 const Login = () => {
   const dispath = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
 
   // google sign in funtion
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((res) => {
       console.log(res);
+      navigate(location.state || "/");
     });
   };
   //email password sign in funtion
   const handelLogin = ({ email, password }) => {
     dispath(setLoading(true));
     signInWithEmailAndPassword(auth, email, password)
-      .then((res) => {
+      .then(() => {
         dispath(setLoading(false));
-        console.log(res);
+        navigate(location.state || "/");
         toast.success("Login Successfully !");
       })
       .catch((err) => {
